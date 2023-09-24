@@ -27,9 +27,9 @@ def home(request):
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
-    room = None
     room = Room.objects.get(id=pk)
-    context = {'room': room}
+    room_messages = room.message_set.all().order_by('-created')
+    context = {'room': room, 'room_messages': room_messages}
     return render(request, 'base/room.html', context)
 
 @login_required(login_url='login')
@@ -42,7 +42,6 @@ def createRoom(request):
             return redirect('home')
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
-
 
 @login_required(login_url='login')
 def updateRoom(request, pk):
