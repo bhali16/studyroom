@@ -4,7 +4,16 @@
 
 <p>@{{ room.host }}</p>
 <h1>{{ room.name }}</h1>
+<hr>
 
+<h3>Conversation</h3>
+<div class="messsage-wrapper">
+    {% for message in room_messages%}
+        <small>@{{message.user}}</small> | <small>{{message.created | timesince}} ago</small>
+        <p>{{message}}</p>
+
+    {% endfor %}
+</div>
 
 
 {% endblock %}
